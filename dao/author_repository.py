@@ -1,18 +1,10 @@
-"""
-AuthorRepository - Data Access Object for the Author entity.
-Contains raw SQL queries for reading author records from SQLite3.
-Authors are pre-populated (seed data), so only read operations are needed.
-"""
-
 from database.db import get_connection
 from models.author import Author
 
 
 class AuthorRepository:
-    """Repository class providing data access methods for Author entity."""
 
     def get_all(self):
-        """Fetch all authors from the database, ordered by full name."""
         conn = get_connection()
         try:
             cursor = conn.cursor()
@@ -23,7 +15,6 @@ class AuthorRepository:
             conn.close()
 
     def get_by_id(self, author_id: int):
-        """Fetch a single author by ID. Returns None if not found."""
         conn = get_connection()
         try:
             cursor = conn.cursor()

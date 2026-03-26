@@ -7,9 +7,15 @@
 {% block content %}
 <div class="page-header">
     <h1 class="page-title">
-        {% if book %}✏️ Редагувати книгу{% else %}📝 Додати нову книгу{% endif %}
+        {% if book %}
+            <i data-lucide="pencil-line" class="icon-title"></i> Редагувати книгу
+        {% else %}
+            <i data-lucide="file-plus-2" class="icon-title"></i> Додати нову книгу
+        {% endif %}
     </h1>
-    <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">← До каталогу</a>
+    <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">
+        <i data-lucide="arrow-left" class="icon-btn"></i> До каталогу
+    </a>
 </div>
 
 <div class="card">
@@ -19,7 +25,9 @@
 
             <!-- Title -->
             <div class="form-group">
-                <label for="title" class="form-label">Назва книги</label>
+                <label for="title" class="form-label">
+                    <i data-lucide="type" class="icon-xs"></i> Назва книги
+                </label>
                 <input type="text"
                        id="title"
                        name="title"
@@ -31,7 +39,9 @@
 
             <!-- Published Year -->
             <div class="form-group">
-                <label for="published_year" class="form-label">Рік публікації</label>
+                <label for="published_year" class="form-label">
+                    <i data-lucide="calendar" class="icon-xs"></i> Рік публікації
+                </label>
                 <input type="number"
                        id="published_year"
                        name="published_year"
@@ -45,7 +55,9 @@
 
             <!-- Author dropdown -->
             <div class="form-group">
-                <label for="author_id" class="form-label">Автор</label>
+                <label for="author_id" class="form-label">
+                    <i data-lucide="user" class="icon-xs"></i> Автор
+                </label>
                 <select id="author_id" name="author_id" class="form-control" required>
                     <option value="">— Оберіть автора —</option>
                     {% for author in authors %}
@@ -60,9 +72,15 @@
             <!-- Form actions -->
             <div class="form-actions">
                 <button type="submit" class="btn btn-success">
-                    {% if book %}💾 Зберегти зміни{% else %}✅ Створити книгу{% endif %}
+                    {% if book %}
+                        <i data-lucide="save" class="icon-btn"></i> Зберегти зміни
+                    {% else %}
+                        <i data-lucide="check" class="icon-btn"></i> Створити книгу
+                    {% endif %}
                 </button>
-                <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">Скасувати</a>
+                <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">
+                    <i data-lucide="x" class="icon-btn"></i> Скасувати
+                </a>
             </div>
 
         </form>

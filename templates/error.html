@@ -4,11 +4,15 @@
 
 {% block content %}
 <div class="error-container">
-    <div class="error-icon">⚠️</div>
+    <div class="error-icon-wrap">
+        <i data-lucide="alert-triangle" class="error-icon"></i>
+    </div>
     <h1 class="error-title">Помилка в опрацюванні запиту</h1>
     <p class="error-message">
         {{ message if message else 'Виникла непередбачена помилка. Спробуйте ще раз або поверніться на головну сторінку.' }}
     </p>
-    <a href="{{ url_for('books.book_list') }}" class="btn btn-primary">← Повернутися до каталогу</a>
+    <a href="{{ url_for('books.book_list') }}" class="btn btn-primary">
+        <i data-lucide="arrow-left" class="icon-btn"></i> Повернутися до каталогу
+    </a>
 </div>
 {% endblock %}

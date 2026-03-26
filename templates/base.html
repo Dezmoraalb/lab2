@@ -6,39 +6,44 @@
     <meta name="description" content="Бібліотека — система управління книгами">
     <title>{% block title %}Бібліотека{% endblock %}</title>
 
-    <!-- Google Fonts — Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="container">
             <a href="{{ url_for('books.book_list') }}" class="navbar-brand">
-                <span class="icon">📚</span> Бібліотека
+                <i data-lucide="library" class="icon"></i>
+                <span>Бібліотека</span>
             </a>
-            <a href="{{ url_for('books.book_list') }}" class="navbar-link">Усі книги</a>
+            <div class="navbar-links">
+                <a href="{{ url_for('books.book_list') }}" class="navbar-link">
+                    <i data-lucide="book-open" class="icon-sm"></i>
+                    Усі книги
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main>
         <div class="container">
             {% block content %}{% endblock %}
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             &copy; 2026 Бібліотека — Лабораторна робота з Веб-програмування
         </div>
     </footer>
+
+    <script>lucide.createIcons();</script>
 
 </body>
 </html>

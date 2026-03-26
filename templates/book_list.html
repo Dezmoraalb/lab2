@@ -4,8 +4,13 @@
 
 {% block content %}
 <div class="page-header">
-    <h1 class="page-title">📖 Каталог книг</h1>
-    <a href="{{ url_for('books.book_create') }}" class="btn btn-success">+ Додати книгу</a>
+    <h1 class="page-title">
+        <i data-lucide="book-open-check" class="icon-title"></i>
+        Каталог книг
+    </h1>
+    <a href="{{ url_for('books.book_create') }}" class="btn btn-success">
+        <i data-lucide="plus" class="icon-btn"></i> Додати книгу
+    </a>
 </div>
 
 <div class="card">
@@ -24,26 +29,36 @@
             <tbody>
                 {% for book in books %}
                 <tr>
-                    <td>{{ book.id }}</td>
+                    <td><span class="badge">{{ book.id }}</span></td>
                     <td>
-                        <a href="{{ url_for('books.book_detail', book_id=book.id) }}"
-                           style="color: var(--primary); text-decoration: none; font-weight: 600;">
+                        <a href="{{ url_for('books.book_detail', book_id=book.id) }}" class="book-link">
                             {{ book.title }}
                         </a>
                     </td>
                     <td>{{ book.published_year }}</td>
-                    <td>{{ book.author_name }}</td>
+                    <td>
+                        <span class="author-tag">
+                            <i data-lucide="user" class="icon-xs"></i>
+                            {{ book.author_name }}
+                        </span>
+                    </td>
                     <td>
                         <div class="actions">
                             <a href="{{ url_for('books.book_detail', book_id=book.id) }}"
-                               class="btn btn-outline btn-sm">👁 Деталі</a>
+                               class="btn btn-ghost btn-sm" title="Деталі">
+                                <i data-lucide="eye" class="icon-btn"></i>
+                            </a>
                             <a href="{{ url_for('books.book_edit', book_id=book.id) }}"
-                               class="btn btn-primary btn-sm">✏️ Редагувати</a>
+                               class="btn btn-primary btn-sm" title="Редагувати">
+                                <i data-lucide="pencil" class="icon-btn"></i>
+                            </a>
                             <form action="{{ url_for('books.book_delete', book_id=book.id) }}"
                                   method="POST"
                                   style="display:inline;"
                                   onsubmit="return confirm('Ви впевнені, що хочете видалити цю книгу?');">
-                                <button type="submit" class="btn btn-danger btn-sm">🗑 Видалити</button>
+                                <button type="submit" class="btn btn-danger btn-sm" title="Видалити">
+                                    <i data-lucide="trash-2" class="icon-btn"></i>
+                                </button>
                             </form>
                         </div>
                     </td>
@@ -54,9 +69,14 @@
     </div>
     {% else %}
     <div class="empty-state">
-        <div class="icon">📭</div>
-        <p>Книг ще немає. Додайте першу книгу!</p>
-        <a href="{{ url_for('books.book_create') }}" class="btn btn-success">+ Додати книгу</a>
+        <div class="empty-icon-wrap">
+            <i data-lucide="book-x" class="empty-icon"></i>
+        </div>
+        <h3>Книг ще немає</h3>
+        <p>Додайте першу книгу до каталогу бібліотеки</p>
+        <a href="{{ url_for('books.book_create') }}" class="btn btn-success">
+            <i data-lucide="plus" class="icon-btn"></i> Додати книгу
+        </a>
     </div>
     {% endif %}
 </div>
