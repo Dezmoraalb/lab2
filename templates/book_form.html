@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if book %}Редагувати: {{ book.title }}{% else %}Нова книга{% endif %} — Бібліотека
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">
+        {% if book %}✏️ Редагувати книгу{% else %}📝 Додати нову книгу{% endif %}
+    </h1>
+    <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">← До каталогу</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form method="POST"
+              action="{% if book %}{{ url_for('books.book_edit', book_id=book.id) }}{% else %}{{ url_for('books.book_create') }}{% endif %}">
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title" class="form-label">Назва книги</label>
+                <input type="text"
+                       id="title"
+                       name="title"
+                       class="form-control"
+                       value="{{ book.title if book else '' }}"
+                       required
+                       placeholder="Введіть назву книги">
+            </div>
+
+            <!-- Published Year -->
+            <div class="form-group">
+                <label for="published_year" class="form-label">Рік публікації</label>
+                <input type="number"
+                       id="published_year"
+                       name="published_year"
+                       class="form-control"
+                       value="{{ book.published_year if book else '' }}"
+                       required
+                       min="1000"
+                       max="2100"
+                       placeholder="Наприклад: 1840">
+            </div>
+
+            <!-- Author dropdown -->
+            <div class="form-group">
+                <label for="author_id" class="form-label">Автор</label>
+                <select id="author_id" name="author_id" class="form-control" required>
+                    <option value="">— Оберіть автора —</option>
+                    {% for author in authors %}
+                    <option value="{{ author.id }}"
+                            {% if book and book.author_id == author.id %}selected{% endif %}>
+                        {{ author.full_name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Form actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-success">
+                    {% if book %}💾 Зберегти зміни{% else %}✅ Створити книгу{% endif %}
+                </button>
+                <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">Скасувати</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

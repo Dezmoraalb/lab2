@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}{{ book.title }} — Бібліотека{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">📘 {{ book.title }}</h1>
+    <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">← До каталогу</a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="detail-grid">
+            <!-- Book ID -->
+            <div class="detail-item">
+                <div class="detail-label">ID книги</div>
+                <div class="detail-value">{{ book.id }}</div>
+            </div>
+
+            <!-- Book Title -->
+            <div class="detail-item">
+                <div class="detail-label">Назва</div>
+                <div class="detail-value">{{ book.title }}</div>
+            </div>
+
+            <!-- Published Year -->
+            <div class="detail-item">
+                <div class="detail-label">Рік публікації</div>
+                <div class="detail-value">{{ book.published_year }}</div>
+            </div>
+
+            <!-- Author (full info with bio) -->
+            <div class="detail-item">
+                <div class="detail-label">Автор</div>
+                {% if book.author %}
+                <div class="author-card">
+                    <div class="author-name">{{ book.author.full_name }}</div>
+                    <div class="author-bio">{{ book.author.bio }}</div>
+                </div>
+                {% else %}
+                <div class="detail-value">Невідомий автор</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="detail-actions">
+            <a href="{{ url_for('books.book_edit', book_id=book.id) }}" class="btn btn-primary">✏️ Редагувати</a>
+            <form action="{{ url_for('books.book_delete', book_id=book.id) }}"
+                  method="POST"
+                  style="display: inline;"
+                  onsubmit="return confirm('Ви впевнені, що хочете видалити цю книгу?');">
+                <button type="submit" class="btn btn-danger">🗑 Видалити</button>
+            </form>
+            <a href="{{ url_for('books.book_list') }}" class="btn btn-outline">← Назад</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
